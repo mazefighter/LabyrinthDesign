@@ -1,9 +1,10 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class CollectableFlower : MonoBehaviour
 {
-    public static int CollectedFlowerCount = 0;
+    public static int TotalFlowerCount = 0;
     private bool collected;
     [SerializeField] private GameObject visual, collectedVisual;
     private Vector3 originalPosition;
@@ -11,6 +12,7 @@ public class CollectableFlower : MonoBehaviour
     private void Awake()
     {
         originalPosition = transform.position;
+        TotalFlowerCount++;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -18,8 +20,8 @@ public class CollectableFlower : MonoBehaviour
         if(collected) return;
         if (other.gameObject.CompareTag("Player"))
         {
+            other.GetComponent<FlowerCounter>().incrementFlower();
             collected = true;
-            CollectedFlowerCount++;
             visual.SetActive(false);
             collectedVisual.SetActive(true);
         }
@@ -27,7 +29,9 @@ public class CollectableFlower : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(new Vector3(0,50*Time.deltaTime,0));
-        transform.position = originalPosition + new Vector3(0, Mathf.Sin(Time.time)*.05f, 0);
+        transform.Rotate(new Vector3(0,0,50*Time.deltaTime));
+        transform.position = originalPosition + new Vector3(0, Mathf.Sin(Time.time)*.1f, 0);
     }
+    
+    
 }

@@ -12,7 +12,7 @@ namespace FirstPersonCharacter.Scripts
     {
         private bool CanMove { get; set; } = true;
         private bool IsSprinting => canSprint && Input.GetButton(sprintInput);
-        private bool ShouldJump => Input.GetButtonDown(jumpInput) && myCharacterController.isGrounded;
+        private bool ShouldJump => Input.GetButton(jumpInput) && myCharacterController.isGrounded;
 
         private bool ShouldCrouch => canCrouch && Input.GetButton(crouchInput);
         private bool isCrouching = false;
